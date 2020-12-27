@@ -7,6 +7,8 @@ ruby '2.7.1'
 gem 'rails', '~> 6.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.2.3'
+# Generate friendly urls 
+gem 'friendly_id', '~> 5.4.0'
 # Use Puma as th.e app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -16,6 +18,8 @@ gem 'puma', '~> 5.0'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
+# Connect to Rest client API
+gem 'rest-client'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

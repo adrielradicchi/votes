@@ -1,20 +1,36 @@
-FROM ruby:2.7.1
+FROM ruby:2.7.1-alpine
 
-ENV NODE_VERSION 14
+RUN apk add --update --no-cache \
+      binutils-gold \
+      build-base \
+      curl \
+      file \
+      g++ \
+      gcc \
+      git \
+      less \
+      libstdc++ \
+      libffi-dev \
+      libc-dev \
+      linux-headers \
+      libxml2-dev \
+      libxslt-dev \
+      libgcrypt-dev \
+      make \
+      netcat-openbsd \
+      nodejs \
+      openssl \
+      pkgconfig \
+      postgresql-dev \
+      python3 \
+      tzdata \
+      yarn
 
-RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash -
+RUN gem install bundler -v 2.0.2
+# RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+# RUN locale-gen
+# RUN export LC_ALL="en_US.utf8"
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs locales yarn
-
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-RUN locale-gen
-RUN export LC_ALL="en_US.utf8"
-
-# RUN npm install -g yarn
-# RUN mkdir /vote
 ENV RAILS_ROOT /var/www/vote
 RUN mkdir -p $RAILS_ROOT 
 # Set working directory
@@ -24,14 +40,16 @@ WORKDIR $RAILS_ROOT
 # ENV RACK_ENV='production' 
 
 COPY Gemfile Gemfile
-# RUN bundle install
 COPY Gemfile.lock Gemfile.lock
-# RUN bundle install --jobs 20 --retry 5 --without development test 
-RUN bundle install
-# RUN rails db:purge db:create db:migrate db:seed RAILS_ENV=production
-RUN rails db:purge db:create db:migrate db:seed
+COPY package.json yarn.lock ./
 
-COPY . .
+RUN bundle config build.nokogiri --use-system-libraries
+RUN bundle install
+RUN yarn install --check-files
+
+COPY . ${RAILS_ROOT}
 RUN bundle exec rake assets:precompile
+
 EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD ["rails", "db:migrate"]
