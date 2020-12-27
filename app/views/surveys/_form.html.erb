@@ -1,0 +1,37 @@
+<%= form_with(model: survey) do |form| %>
+  <% if survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+
+      <ul>
+        <% survey.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tittle %>
+    <%= form.text_field :tittle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :begin_datetime %>
+    <%= form.datetime_select :begin_datetime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_datetime %>
+    <%= form.datetime_select :end_datetime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.check_box :status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Response:</strong>
+  <%= @survey_response.response %>
+</p>
+
+<p>
+  <strong>Survey question:</strong>
+  <%= @survey_response.survey_question_id %>
+</p>
+
+<%= link_to 'Edit', edit_survey_response_path(@survey_response) %> |
+<%= link_to 'Back', survey_responses_path %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Session:</strong>
+  <%= @survey_response_user.session_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @survey_response_user.user_id %>
+</p>
+
+<p>
+  <strong>Survey response:</strong>
+  <%= @survey_response_user.survey_response %>
+</p>
+
+<p>
+  <strong>Survey question:</strong>
+  <%= @survey_response_user.survey_question %>
+</p>
+
+<%= link_to 'Edit', edit_survey_response_user_path(@survey_response_user) %> |
+<%= link_to 'Back', survey_response_users_path %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tittle:</strong>
+  <%= @survey.tittle %>
+</p>
+
+<p>
+  <strong>Begin datetime:</strong>
+  <%= @survey.begin_datetime %>
+</p>
+
+<p>
+  <strong>End datetime:</strong>
+  <%= @survey.end_datetime %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @survey.status %>
+</p>
+
+<%= link_to 'Edit', edit_survey_path(@survey) %> |
+<%= link_to 'Back', surveys_path %>

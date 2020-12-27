@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Survey Response Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Session</th>
+      <th>User</th>
+      <th>Survey response</th>
+      <th>Survey question</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @survey_response_users.each do |survey_response_user| %>
+      <tr>
+        <td><%= survey_response_user.session_id %></td>
+        <td><%= survey_response_user.user_id %></td>
+        <td><%= survey_response_user.survey_response %></td>
+        <td><%= survey_response_user.survey_question %></td>
+        <td><%= link_to 'Show', survey_response_user %></td>
+        <td><%= link_to 'Edit', edit_survey_response_user_path(survey_response_user) %></td>
+        <td><%= link_to 'Destroy', survey_response_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Survey Response User', new_survey_response_user_path %>
